@@ -46,7 +46,7 @@ class DeputadosController {
    * @param {*} value 
    */
   validaSelecaoCheckbox(value) {
-    if (this.deputadosSelecionados.length === 3 && !this.deputadosSelecionados.includes(value)) {
+    if (this.deputadosSelecionados.length === 4 && !this.deputadosSelecionados.includes(value)) {
       return true
     }
     return false
