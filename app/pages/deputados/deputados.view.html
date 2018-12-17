@@ -1,0 +1,124 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2">Deputados Federais</h1>
+</div>
+
+<ui-view> 
+    <div class="row">
+        <div class="col-md-12 order-md-1 shadow-none p-3 mb-5 bg-light">
+            <form name="pesquisarDeputados" id="pesquisarDeputados">
+                <div class="form-group">
+                    <label for="inputNome">Nome</label>
+                    <input type="text" class="form-control" id="inputNome" placeholder="Entre com o nome parlamentar" ng-model="$ctrl.filtros.nome">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="inputLegislatura">Legislatura</label>
+                        <select id="inputLegislatura" class="form-control" ng-model="$ctrl.filtros.idLegislatura" ng-value="item.id"
+                            ng-options="item.id as ('de ' +(item.dataInicio | date: 'yyyy') + ' a ' + (item.dataFim | date:'yyyy')) for item in $ctrl.legislaturas track by item.id">
+                            <option value="">-- Selecione --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="inputPartido">Partido</label>
+                        <select id="inputPartido" class="form-control" ng-model="$ctrl.filtros.siglaPartido" ng-value="item.id"
+                            ng-options="item.sigla as ((item.sigla) + ' - ' + (item.nome)) for item in $ctrl.partidos track by item.id">
+                            <option value="">-- Selecione --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="inputEstado">Estado</label>
+                        <select id="inputEstado" class="form-control" ng-model="$ctrl.filtros.siglaUf">
+                            <option value="">-- Selecione --</option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-success btn-sm" ng-click="$ctrl.pesquisarDeputados($ctrl.filtros)">Pesquisar</button>
+                <button type="button" class="btn btn-secondary btn-sm" ng-click="$ctrl.limparFiltos()">Limpar</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12 order-md-1">
+            <div class="table-responsive">
+                <table class="table table-striped table-sm" id="deputados">
+                    <thead>
+                        <tr scope="row">
+                            <th scope="col" class="text-center">#</th>
+                            <th scope="col">NOME</th>
+                            <th scope="col">PARTIDO</th>
+                            <th scope="col">ESTADO</th>
+                            <th scope="col" class="text-center">AÇÂO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="item in $ctrl.deputados track by $index">
+                            <td scope="row" class="text-center">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" title="Comparar Deputado" checklist-model="$ctrl.deputadosSelecionados"
+                                        checklist-value="item.id" ng-disabled="$ctrl.validaSelecaoCheckbox(item.id)" />
+                                </div>
+                            </td>
+                            <td><a data-ng-bind="item.nome" href="#" ui-sref="deputados.detalhes({id: item.id})"></a></td>
+                            <td data-ng-bind="item.siglaPartido"></td>
+                            <td data-ng-bind="item.siglaUf"></td>
+                            <td class="text-center">
+                                <a class="btn btn-dark btn-sm"  ui-sref="deputados.detalhes({id: item.id})" data-toggle="tooltip"
+                                    data-placement="top" title="Ver detalhes">
+                                    Detalhes
+                                </a>
+                            </td>
+                        </tr>
+                        <tr ng-if="!$ctrl.deputados.length">
+                            <td colspan="5">Não foram encontrados dados para sua pesquisa</td>
+                        </tr>
+                    </tbody>
+                    <tfooter>
+                        <tr>
+                            <td colspan="5">
+                                <div class="btn-toolbar mb-2 mb-md-0">
+                                    <div class="btn-group mr-2">
+                                        <button class="btn btn-sm btn-outline-secondary" type="button" 
+                                            ui-sref="deputados.comparar({id: $ctrl.deputadosSelecionados})"
+                                            ng-disabled="$ctrl.habilitaBotaoComparar()">
+                                            Comparar Deputados</button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfooter>
+                </table>
+            </div>
+        </div>
+    </div>
+</ui-view>

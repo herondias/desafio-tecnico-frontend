@@ -1,0 +1,57 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h4 data-ng-bind="$ctrl.title"></h4>
+    <div class="btn-toolbar mb-2 mb-md-0 float-right">
+        <div class="btn-group mr-2">
+            <a class="btn btn-sm btn-outline-info" ui-sref="deputados">Voltar</a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <div class="card" style="width: 15rem;">
+                <div class="border border-light" style="height: 317px">
+                    <h5 class="display-4">Comparação de Parlamentares</h5>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Nome Eleitoral</h5>
+                    <p class="card-text">Partido</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Escolaridade</li>
+                    <li class="list-group-item">Naturalidade</li>
+                    <li class="list-group-item">Vestibulum at eros</li>
+                </ul>
+                <div class="card-body">
+                    <a href="#" class="card-link"></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-3" data-ng-repeat="item in $ctrl.deputados track by $index">
+            <div class="card" style="width: 15rem;">
+                <img class="card-img-top" src="{{item.ultimoStatus.urlFoto}}" alt="">
+                <div class="card-body">
+                    <h5 class="card-title h6" data-ng-bind="item.ultimoStatus.nomeEleitoral"></h5>
+                    <p class="card-text">{{item.ultimoStatus.siglaPartido + '-' + item.ultimoStatus.siglaUf}}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" data-ng-bind="item.escolaridade"></li>
+                    <li class="list-group-item">{{item.municipioNascimento + ' - ' + item.ufNascimento}}</li>
+                    <li class="list-group-item" data-ng-bind="item.municipioNascimento"></li>
+                </ul>
+                
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" data-ng-bind="item.escolaridade"></li>
+                    <li class="list-group-item">{{item.municipioNascimento + ' - ' + item.ufNascimento}}</li>
+                    <li class="list-group-item" data-ng-bind="item.municipioNascimento"></li>
+                </ul>
+
+                <div class="card-body">
+                    <a href="#" class="card-link" ui-sref="deputados.detalhes({id: item.id})">Detalhes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
