@@ -19,18 +19,18 @@ const wpkConfig = env => {
         entry: ['babel-polyfill', path.resolve('./app/core/bootstrap.js')],
         output: {
             path: path.resolve(__dirname, 'dist'),
-            // chunkFilename: '[name].chunk.js',
+            chunkFilename: '[name].chunk.js',
             filename: 'app-bundle.js'
         },
 
         module: {
             rules: [
-                // { // eslint
-                //     enforce: 'pre',
-                //     test: /\.js?$/,
-                //     exclude: /node_modules/,
-                //     loader: 'eslint-loader',
-                // },
+                { // eslint
+                    enforce: 'pre',
+                    test: /\.js?$/,
+                    exclude: /node_modules/,
+                    loader: 'eslint-loader',
+                },
                 { // babel
                     test: /\.js?$/,
                     exclude: /node_modules/,
@@ -45,14 +45,14 @@ const wpkConfig = env => {
                     loader: 'raw-loader',
                     exclude: path.resolve('./app/index.html')
                 },
-                // { // css
-                //     test: /\.css?$/,
-                //     use: [{
-                //         loader: 'style-loader'
-                //     }, {
-                //         loader: 'css-loader'
-                //     }]
-                // }
+                { // css
+                    test: /\.css?$/,
+                    use: [{
+                        loader: 'style-loader'
+                    }, {
+                        loader: 'css-loader'
+                    }]
+                }
             ]
         },
 

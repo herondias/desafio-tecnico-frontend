@@ -21,10 +21,8 @@ class CompararDeputadosController {
       this.depService.obterDeputadoPorId(elm).then((response) => {
           this.deputados.push(angular.copy(response))
       })
-    });
-    console.log(this.deputados)
+    })
   }
-
 }
 
 CompararDeputadosController.$inject = ['DeputadosService', '$stateParams', 'blockUI']
